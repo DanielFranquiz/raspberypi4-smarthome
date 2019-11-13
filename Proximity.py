@@ -47,6 +47,7 @@ if __name__ == '__main__':
             if dist < 1208.6:      
                 print ("Measured Distance = %.1f cm" % dist)
                 time.sleep(1)
+	    #this will be the trigger to activate camera/"wake" device
             if dist < 100.0:
                 print ("Object or person is near your door!")
             else:
