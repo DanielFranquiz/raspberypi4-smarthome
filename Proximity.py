@@ -44,8 +44,16 @@ if __name__ == '__main__':
     try:
         while True:
             dist = distance()
-            print ("Measured Distance = %.1f cm" % dist)
-            time.sleep(1)
+            if dist < 1208.6:      
+                #print ("Measured Distance = %.1f cm" % dist)
+                time.sleep(1)
+	    #this will be the trigger to activate camera/"wake" device
+            if dist < 100.0:
+                print ("Object or person is near your door!")
+            else:
+                print ("Out of range!")
+                time.sleep(2)
+                
  
         # Reset by pressing CTRL + C
     except KeyboardInterrupt:
