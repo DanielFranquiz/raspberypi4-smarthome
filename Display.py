@@ -47,7 +47,7 @@ im.show()
 # Display image.
 disp.image(image1)
 disp.display()
-time.sleep(5)
+time.sleep(7)
 
 if disp.height == 64:
    image = Image.open('/home/pi/Desktop/luigi.png').convert('1')
