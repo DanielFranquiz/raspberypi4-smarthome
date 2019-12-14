@@ -3,6 +3,7 @@ import sys
 from mail import sendEmail
 from flask import Flask, render_template, Response
 from camera import VideoCamera
+from proximity import distance
 from flask_basicauth import BasicAuth
 import time
 import threading
@@ -18,6 +19,7 @@ app.config['BASIC_AUTH_PASSWORD'] = 'pass'
 app.config['BASIC_AUTH_FORCE'] = True
 
 basic_auth = BasicAuth(app)
+#epoch:- beginning of time
 last_epoch = 0
 
 def check_for_objects():
@@ -25,6 +27,7 @@ def check_for_objects():
 	while True:
 		try:
 			frame, found_obj = video_camera.get_object(object_classifier)
+			#time() :- number of seconds elapsed since the epoch
 			if found_obj and (time.time() - last_epoch) > email_update_interval:
 				last_epoch = time.time()
 				print ("Sending email...")
@@ -54,3 +57,22 @@ if __name__ == '__main__':
     t.daemon = True
     t.start()
     app.run(host='0.0.0.0', debug=False)
+
+    try:
+        while True:
+            dist = distance()
+            if dist < 1208.6:      
+                #print ("Measured Distance = %.1f cm" % dist)
+                time.sleep(1)
+	    #this will be the trigger to activate camera/"wake" device
+            if dist < 100.0:
+                print ("Object or person is near your door!")
+            else:
+                print ("Out of range!")
+                time.sleep(7)
+                
+ 
+        # Reset by pressing CTRL + C
+    except KeyboardInterrupt:
+        print("Measurement stopped by User")
+        GPIO.cleanup()
