@@ -1,5 +1,5 @@
+# libraries
 import smtplib
-import mail.config as cfg
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
@@ -9,14 +9,15 @@ fromEmail = '187ridley@gmail.com'
 # You can generate an app password here to avoid storing your password in plain text
 # https://support.google.com/accounts/answer/185833?hl=en
 # This is a generated password
-fromEmailPassword = 'pxmqlpubkwyfwlok'
+fromEmailPassword = 'orwczaksjwqcanek'
 
 # Email you want to send the update to
 toEmail = '187ridley@gmail.com'
 
+# email message
 def sendEmail(image):
 	msgRoot = MIMEMultipart('related')
-	msgRoot['Subject'] = 'Security Update'
+	msgRoot['Subject'] = 'You have a visitor at your door'
 	msgRoot['From'] = fromEmail
 	msgRoot['To'] = toEmail
 	msgRoot.preamble = 'Raspberry pi security camera update'

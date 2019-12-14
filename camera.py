@@ -1,10 +1,14 @@
+# libraries
 import cv2
 from imutils.video.pivideostream import PiVideoStream
 import imutils
 import time
 import numpy as np
 
+# this class contains all of the functions for the camera functionality
 class VideoCamera(object):
+    
+    # this will start the video stream
     def __init__(self, flip = False):
         self.vs = PiVideoStream().start()
         self.flip = flip
@@ -13,11 +17,13 @@ class VideoCamera(object):
     def __del__(self):
         self.vs.stop()
 
+    # this function 
     def flip_if_needed(self, frame):
         if self.flip:
             return np.flip(frame, 0)
         return frame
 
+    #this function gets the frame and returns it as a .jpg for the email
     def get_frame(self):
         frame = self.flip_if_needed(self.vs.read())
         ret, jpeg = cv2.imencode('.jpg', frame)
@@ -39,7 +45,8 @@ class VideoCamera(object):
         if len(objects) > 0:
             found_objects = True
 
-        # Draw a rectangle around the objects
+        # Draw a rectangle around identified objects
+        # In this case the objects were human faces
         for (x, y, w, h) in objects:
             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
